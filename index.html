@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الطريق الى الجنة</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    /* تعديلات جديدة */
+    .sidebar-section.logout:hover {
+      background-color: rgba(255, 0, 0, 0.2);
+    }
+    a {
+      margin: 0 5px;
+      color: inherit;
+      text-decoration: none;
+      margin-bottom: 9px; /* تحقيق المسافة بين الأيقونات */
+      display: block; /* جعل كل رابط على سطر منفصل */
+    }
+    .developer-name {
+      text-align: center;
+      margin-top: 5px;
+      color: rgb(24, 23, 23);
+      margin-top: 5px; /* تحريك اسم المطور إلى أسفل الصورة */
+    }
+    .section:hover {
+      background-color: rgba(128, 128, 128, 0.562);
+      transition: transform 0.3s;
+      transform: scale(1.05);
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: red;
+      color: white;
+      border: none;
+      padding: 0.5rem;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .close-button:hover {
+      background-color: rgb(134, 35, 35);
+    }
+    .icon:hover {
+      border-bottom: 2px solid rgb(238, 238, 245);
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    * {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth; 
+    }
+    .background-image {
+      background-image: url('photo.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 100vh; /* Adjust the height as needed */
+    }
+    a:hover {
+      background-color: rgb(90, 90, 236);
+    }
+    .sidebar-section.about, .sidebar-section.developer {
+      color: rgb(24, 23, 23);
+    }
+    .sidebar-section.logout {
+      color: red;
+    }
+    .sidebar-section.about:hover{
+      background-color: rgb(221, 211, 211);
+    }
+    .sidebar-section.developer:hover{
+      background-color: rgb(221, 211, 211);
+    }
+  .fab :hover{
+    background-color: blue;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="root" class="background-image"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+
+    const surahNames = [
+      "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس",
+      "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه",
+      "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
+      "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر",
+      "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق",
+      "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة",
+      "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج",
+      "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس",
+      "التكوير", "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد",
+      "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات",
+      "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر",
+      "المسد", "الإخلاص", "الفلق", "الناس"
+    ];
+
+    // Adding URLs for the PDF files of each Surah
+    const surahPdfs = [
+      "https://drive.google.com/file/d/12j2TJsr2SZbEVqDeL4_XwYNR5TkvnJ8C/view?usp=drivesdk", "https://drive.google.com/file/d/1vCoNnrE0ZcWBcMB2uKfxOTok9XwGXYtA/view?usp=drivesdk", "https://drive.google.com/file/d/12lwrwyhZUpGvLYwNXAqLL-yUoHPLYrU0/view?usp=drivesdk", "https://drive.google.com/file/d/1yYYXKWkPqjIA1-EnOTJxzI6LLVeE4dNM/view?usp=drivesdk", "https://drive.google.com/file/d/1fbtgf7yd4nEnWyl7zrwlS897ZG37IKqh/view?usp=drivesdk",
+      "https://drive.google.com/file/d/12yq3MFKnoiX2gCMI9yqcSTQnGg751dtj/view?usp=drivesdk", "https://drive.google.com/file/d/16FmoNhwLsQxLxhyDAHPN8qK3Q4zDBsCq/view?usp=drivesdk", "https://drive.google.com/file/d/1KkxRHT79N_nZtobvQCNRIjYFeBIle45x/view?usp=drivesdk", "https://drive.google.com/file/d/1w76RGvbpTLbEooRjeu0_19815GnMaav9/view?usp=drivesdk", "https://drive.google.com/file/d/1c6JsqL-_s6a9eQ8tvZ9iC5CA7f4dI5fi/view?usp=drivesdk",
+      "https://drive.google.com/file/d/1KaHXeUnMbRIWB-znZ_iFYEvzGE38z3eW/view?usp=drivesdk", "https://drive.google.com/file/d/1eJWZW0qfjKl8vkK71AU-2nvVs1Ye7CzJ/view?usp=drivesdk", "https://drive.google.com/file/d/1TJ4Q8CGpTaUSrU3BUIK1bdEAM9Y8NajK/view?usp=drivesdk", "https://drive.google.com/file/d/1fRoTIDO7x9wfGBff7DJbEaoj3T6IkiNv/view?usp=drivesdk", "https://drive.google.com/file/d/1Eh9rLLf77e7mm4l0zgLRQWZveLVZOvAn/view?usp=drivesdk",
+      "https://drive.google.com/file/d/1bCUVt-dQJF9sraahJE67YSd1K1Lvc2kP/view?usp=drivesdk", "https://drive.google.com/file/d/1xak0PilyYL2vHKh4OOmRF_3JZToGs9Rw/view?usp=drivesdk", "https://drive.google.com/file/d/1HZ7J9ksATG6UwLd7ccYXqyJxabo7WyR7/view?usp=drivesdk", "https://drive.google.com/file/d/1ztS9_QMrlcKbRAECcESzeKflIIOUtvrN/view?usp=drivesdk", "https://drive.google.com/file/d/1Imay53zQ0Nv27EKJwZd3FtmckX4hxhrq/view?usp=drivesdk",
+      "https://drive.google.com/file/d/1pqtUYS3zVrgC5xP2C3UndRsDVxJZ0PcL/view?usp=drivesdk", "https://drive.google.com/file/d/1fcjQR_qOrqR3rjOQFw4dFuCzO5-FhtB_/view?usp=drivesdk", "https://drive.google.com/file/d/1K3JkpWC7rTzlgnyA8pc_hMzK8Q9Jv2vD/view?usp=drivesdk", "https://drive.google.com/file/d/1cN8bJj5LuDHS83mrMdjjOhMDhMP-z27P/view?usp=drivesdk", "https://drive.google.com/file/d/1LytOgN_r1I_blzKlTNuy2bMgzNcej_7Y/view?usp=drivesdk",
+      "https://drive.google.com/file/d/12R4LMBKhJ77R4okVpNzYctkYCdPvbLzd/view?usp=drivesdk", "https://drive.google.com/file/d/16sluNU_r1z6d2WZVSPguaCwBD6mIbs_k/view?usp=drivesdk", "https://drive.google.com/file/d/1H3YkORKFx75rHTIbAV-GjzqkC8Nrokn-/view?usp=drivesdk", "https://drive.google.com/file/d/153A-_dEQGOIStT87CQfkLwsoT95y3jqB/view?usp=drivesdk", "https://drive.google.com/file/d/1ZkdoNLBoSwg894p1KY9WE-MHoP9FzqXQ/view?usp=drivesdk",
+      "https://drive.google.com/file/d/12Z2P6jzBeUUtnwtvyAZfBlnTi78Ed49V/view?usp=drivesdk", "https://drive.google.com/file/d/1WcAE9c-k-1uoIMcZ23GHeBOyI2QWZeJx/view?usp=drivesdk", "https://drive.google.com/file/d/1q1T-oIZ005Bep4XHUiSy8N34EpDgWzfq/view?usp=drivesdk", "https://drive.google.com/file/d/1_1fmByKb4aJoucu2o6G6YWed8oWBQnrX/view?usp=drivesdk", "https://drive.google.com/file/d/13tnthcfKyKOrZmjwRm0jeCHJWVMbg-fE/view?usp=drivesdk",
+      "https://drive.google.com/file/d/1qKKpM-BEQ_OSFQcvMzUV_Wp2JedELC3r/view?usp=drivesdk", "https://drive.google.com/file/d/1JGpUjbrZSr87wVg6OFt_g7tdUkyoaDzt/view?usp=drivesdk", "https://drive.google.com/file/d/1aui1sP9EiyIOtnegcLf741p1sukavokP/view?usp=drivesdk", "https://drive.google.com/file/d/1m8wHw5ra_LRBogI45rFSsKhloYEcUMQ2/view?usp=drivesdk", "https://drive.google.com/file/d/17R_ajo33B3ywW1v5gKhiRsMXQsu-8BjD/view?usp=drivesdk",
+      "https://drive.google.com/file/d/1Wv0xZqlBh6asKLx_MpszBaEfhXQjcM9Z/view?usp=drivesdk", "https://drive.google.com/file/d/1XslVWwGeYKD-vDMXtgOPZNYX1qBQQ18k/view?usp=drivesdk", "https://drive.google.com/file/d/1OguoOwn3NwpzyW1XD_pwpFmxU8ps2Q2s/view?usp=drivesdk", "https://drive.google.com/file/d/1mVcaIXpoZWAofBWUStsiTaGrzTLkkOos/view?usp=drivesdk", "https://drive.google.com/file/d/1Ue-zyM2-Q7uSUwQGsciBGGPrb6VaRDQz/view?usp=drivesdk",
+      "https://drive.google.com/file/d/10MNt0BTCEcj9n_5SnXvv4i_jJHnwkmk8/view?usp=drivesdk", "https://drive.google.com/file/d/1o-5l1TybhAsjelP52VcVg_ZZrqCaDayA/view?usp=drivesdk", "https://drive.google.com/file/d/172JAnfP1EE7xRhyapqLfQ_najp3TiMGc/view?usp=drivesdk", "https://drive.google.com/file/d/1hIGfhPJnVtmHq-XoK6Ht-T59Oecnlmj8/view?usp=drivesdk", "https://drive.google.com/file/d/1dHZaZRbGv_xJ8xlp5CzkU67IhNRGxXjc/view?usp=sharing",
+      "https://drive.google.com/file/d/1N3c4U4FwWoQDrUM2H1-eCUjkXU6lO_2X/view?usp=sharing", "https://drive.google.com/file/d/1V82Rm78Sfw90gxz1wGFLj1P9Ml_FnByr/view?usp=sharing", "https://drive.google.com/file/d/1qzoTUEKdWh3urLrs2dBb3GGz4OYD4OwK/view?usp=sharing", "https://drive.google.com/file/d/1TegwyIvL_Vrtgxaneufrl60TmyPCSPtY/view?usp=sharing", "https://drive.google.com/file/d/1CvnFs4j6Fd1Ip_MUV9Mklv-_mpfrYIL3/view?usp=sharing","https://drive.google.com/file/d/1ajYpMf8SUaZsP5cXzMSYFi0iUeDyb6ZV/view?usp=sharing", "https://drive.google.com/file/d/1Be6h37Y10JlufiIuwFdJq2wLPXWwk_As/view?usp=sharing", "https://drive.google.com/file/d/1TcnKpttxeKsJ7k63lrzkW9VTfu2tMciR/view?usp=sharing", "https://drive.google.com/file/d/1RBfkPc_7ecnNgitDayBP_Upso5UqvVxU/view?usp=sharing", "https://drive.google.com/file/d/1TFRO3EsJXbeeESJp3fX0WOk8h7vcsK_s/view?usp=sharing",
+          "https://drive.google.com/file/d/1xIVYn1dSxJqcyAbUqU1gVnpbC-c34DLq/view?usp=sharing", "https://drive.google.com/file/d/14SRcG-VSfHcIhvxLQ2WRI6lHn2sMjRrD/view?usp=sharing", "https://drive.google.com/file/d/1hh-8_g7H95pxz5Ha9r0HLrz1p6-jqNq1/view?usp=sharing", "https://drive.google.com/file/d/1fqj_x6f1VrgogNZcYHPvp2HN1n1ygSbx/view?usp=sharing", "https://drive.google.com/file/d/1fqj_x6f1VrgogNZcYHPvp2HN1n1ygSbx/view?usp=sharing",
+          "https://drive.google.com/file/d/1bvtOHQU4xPUWZoDpZ6ios_0w3U1-m_2L/view?usp=sharing", "https://drive.google.com/file/d/1Z7Ty_AO7alyNhwdgtPQaUu-FpZAPVSt-/view?usp=sharing", "https://drive.google.com/file/d/1lolCXxDWGr3LjEenZT7x9NJWwchOVpwm/view?usp=sharing", "https://drive.google.com/file/d/1WEFankwhNSXtqxbKRmkPMEA2rKldeL0N/view?usp=sharing", "https://drive.google.com/file/d/1TFHW-6hedDqEd3qjqS03iJsqd1pHguEM/view?usp=sharing",
+          "https://drive.google.com/file/d/1GZ6bmoA77E1yPhHo2K2MQL2gAQkuNXL5/view?usp=sharing", "https://drive.google.com/file/d/1sHkK_MD41WxOolAugbqGSt0PDASnfLf9/view?usp=sharing", "https://drive.google.com/file/d/1uzUE05c6G4b6C8dXpVtC2Vri2Voho-ob/view?usp=sharing", "https://drive.google.com/file/d/17LTdxUuuRUpnEFNGCPNtz92eDlm2XGWs/view?usp=sharing", "https://drive.google.com/file/d/1r78y_VELfLBS3XFJa7JJYfpxIWhUaLX6/view?usp=sharing",
+          "https://drive.google.com/file/d/1NAY907sHUGQKmr7jSuoaeinuL7qumxZ7/view?usp=sharing", "https://drive.google.com/file/d/1uZu2St91aLuEPTpYEmoVDsxbsoe9ITFu/view?usp=sharing", "https://drive.google.com/file/d/1bPW4HlY2PkfnVwa3YkwN6qOP5QQKTUCN/view?usp=sharing", "https://drive.google.com/file/d/13viLa0znr_Wcc-yOBUFTRise4vBZIIK-/view?usp=sharing", "https://drive.google.com/file/d/14ecvUeJzhlKrQM6D4CHIMTqbZyZ2t_T7/view?usp=sharing",
+          "https://drive.google.com/file/d/1n-U-ubtjFeeiJ9IMbD2VD3HjIeyKYR4C/view?usp=sharing", "https://drive.google.com/file/d/1sQMJ4XY-Ha7NLsP1zjwwFKuIuI37Epg1/view?usp=sharing", "https://drive.google.com/file/d/1eYMx5G6B3jNxCLf6JBmA5kp_BNqWtTE5/view?usp=sharing", "https://drive.google.com/file/d/19BQcztfbysZHpsOIFDXkepP6lH_SQZZM/view?usp=sharing", "https://drive.google.com/file/d/1QzTofgp2tjBFvLE3cCvccXLAJ6rBSexF/view?usp=sharing",
+          "https://drive.google.com/file/d/1fV4ixM9kt8j_viNVvHwqTcGk_Tcha-SA/view?usp=sharing", "https://drive.google.com/file/d/1JuvFONy6_pqKEvpOcLfmON8tUnHh4tcW/view?usp=sharing", "https://drive.google.com/file/d/1Y_5jQCQ6L8qktGZCU4WQtXGoVFQH73M7/view?usp=sharing", "https://drive.google.com/file/d/1uHfOK7OrXin8bKh9cJgxONXSZg-s7Fij/view?usp=sharing", "https://drive.google.com/file/d/1U8Ekw2H6RI7woPnZxB8eOJv4LDz8f1dq/view?usp=sharing",
+          "https://drive.google.com/file/d/1b0xPmp8YMOIyvQfxoL4piq0k87fbwcnw/view?usp=sharing", "https://drive.google.com/file/d/1yRV48bCobljty_gKn3YHlo-YfMi5EHr6/view?usp=sharing", "https://drive.google.com/file/d/1MVSIavg-KJv_HQInWVPjgervikd-QHgq/view?usp=sharing", "https://drive.google.com/file/d/1ELqooG8OQg9Pe8wWANxuw34-82aA6zru/view?usp=sharing", "https://drive.google.com/file/d/1b65BF0ccRMPcKGw0y7Whm5Ov_X4Q8Knj/view?usp=sharing",
+          "https://drive.google.com/file/d/1AuzWByW6c05kF0PeGkc-rMJ-rP56iVmJ/view?usp=sharing", "https://drive.google.com/file/d/1i-B1ijwTtD_F2pOmKuuCP2Qs01NjHDKn/view?usp=sharing", "https://drive.google.com/file/d/15DV7pIu3yDUG215G98FDdAAoNBdTcypy/view?usp=sharing", "https://drive.google.com/file/d/1jrH4C27kL37k-BIUzw_YaLJzSKuF8UK9/view?usp=sharing", "https://drive.google.com/file/d/1btxk1i0bM42YhWDXTzGCIUuKbdo6M3UE/view?usp=sharing",
+          "https://drive.google.com/file/d/1UhzL6mavN8sAr4nrupi8_hao2xcrxVYN/view?usp=sharing", "https://drive.google.com/file/d/1oEvbAMQwGCggvzUU6mZN-5yjY1VUyIrL/view?usp=sharing", "https://drive.google.com/file/d/1UkjBvc-T9VH6tzTsdJuizJ6sGZHY40m6/view?usp=sharing", "https://drive.google.com/file/d/1Fv6eL2B0TTPNhfgFYg29aDA2N4I50qea/view?usp=sharing", "https://drive.google.com/file/d/1lb0qEwwHhY8zhydCOOlAmTk09TZOym7Q/view?usp=sharing",
+          "https://drive.google.com/file/d/16if4JcrXExHp2vwUh_kzoSaNezHcg4no/view?usp=sharing", "https://drive.google.com/file/d/1JaoxwXzBpYefijPUjHgTkwDMqYsRrgj3/view?usp=sharing", "https://drive.google.com/file/d/1jGIS96lmtcjTyoDJGKchk2jAXQZLR7v9/view?usp=sharing", "https://drive.google.com/file/d/1S5zJEk-ydnbAB8CSIz-MI4y_kVSWa5YN/view?usp=sharing", "https://drive.google.com/file/d/1DklWNUofr0fDPLga5KdSAqKQMFBCFZpP/view?usp=sharing",
+          "https://drive.google.com/file/d/1zzueacsZn5y1V3v11NC-m0Ba3nN0wKq2/view?usp=sharing", "https://drive.google.com/file/d/16bSwshx__gS7Al_uIoo3fUNXg4eMW_cV/view?usp=sharing", "https://drive.google.com/file/d/1fWMeUHC00Lwni6adh_7bY5g8wKOyHB_d/view?usp=sharing", "https://drive.google.com/file/d/1UyvR6GhkKv3Ode_tQ6K9Iq6cdIM1aUuq/view?usp=sharing"
+    ];
+
+    const App = () => {
+      const [activeSection, setActiveSection] = useState(null);
+      const [activeSurahIndex, setActiveSurahIndex] = useState(null);
+      const [searchTerm, setSearchTerm] = useState('');
+      const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+      const [activeSidebarSection, setActiveSidebarSection] = useState(null);
+
+      const toggleSection = (section) => {
+        setActiveSection(activeSection === section ? null : section);
+        setActiveSurahIndex(null);
+      };
+     
+     
+      const showSurah = (index) => {
+        setActiveSurahIndex(index);
+      };
+
+      const closeSurah = () => {
+        setActiveSurahIndex(null);
+      };
+
+      const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+      };
+
+      const filteredSurahs = surahNames.filter(surah => 
+        surah.includes(searchTerm)
+      );
+
+      const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+        setActiveSidebarSection(null);
+      };
+
+      const handleSidebarSectionClick = (section) => {
+        if (section === 'logout') {
+          closeWindow();
+        } else {
+          setActiveSidebarSection(activeSidebarSection === section ? null : section);
+        }
+      };
+
+      const closeWindow = () => {
+        window.open('about:blank', '_self').close();
+      };
+
+      return (
+        <div className="container mx-auto p-4">
+          <div className="bg-gray-800 p-4 flex justify-between items-center">
+            <div className="flex items-center space-x-4">
+              <button className="text-yellow-500 icon" onClick={toggleSidebar}>
+                <div className="space-y-1">
+                  <div className="w-6 h-0.5 bg-white"></div>
+                  <div className="w-6 h-0.5 bg-white"></div>
+                  <div className="w-6 h-0.5 bg-white"></div>
+                </div>
+              </button>
+              <h1 className="text-white text-2xl">الطريق الى الجنة</h1>
+            </div>
+            <div className="flex space-x-4">
+              <button className="text-yellow-500 icon" onClick={() => toggleSection('quran')}>القرآن الكريم</button>
+              <button className="text-yellow-500 icon" onClick={() => toggleSection('azkar')}>الأذكار</button>
+              <button className="text-yellow-500 icon" onClick={() => toggleSection('misbaha')}>المسبحة الإلكترونية</button>
+            </div>
+          </div>
+          {isSidebarOpen && (
+            <div className="absolute top-16 left-0 w-64 bg-white shadow-lg z-10">
+              <button className="close-button" onClick={toggleSidebar}>×</button>
+              <ul className="flex flex-col p-4 space-y-2">
+                <li className="text-xl cursor-pointer sidebar-section about" onClick={() => handleSidebarSectionClick('about')}>عن الموقع</li>
+                {activeSidebarSection === 'about' && (
+                  <div className="text-sm p-2">
+                    <strong>مقدمة:</strong>
+                    <p>هذا موقع ديني يحتوي على القرآن الكريم بالكامل ويحتوي أيضا على جميع الأذكار والأدعية بالإضافة إلى وجود مسبحة إلكترونية للتسبيح.</p>
+                    <strong>أهداف الموقع:</strong>
+                    <ol>
+                      <li>1-</li>
+                      <li>يهدف هذا الموقع إلى التيسير على جميع المسلمين للوصول إلى القرآن الكريم والأذكار والمسبحة الإلكترونية في موقع واحد بدلا من التنقل بين التطبيقات أو الصفحات الأخرى</li>
+                      <li>2-</li>
+                      <li>صدقة جارية على روح والدي الغالي الحاج إسماعيل إبراهيم العناني.</li>
+                    </ol>
+                  </div>
+                )}
+                <li className="text-xl cursor-pointer sidebar-section developer" onClick={() => handleSidebarSectionClick('developer')}>مطور الموقع</li>
+                {activeSidebarSection === 'developer' && (
+                  <div className="text-sm p-2">
+                    <img src="mos.jpg" alt="مطور الموقع" className="w-16 h-16 rounded-full mx-auto mb-2"/>
+                    <div className="developer-name">Mostafa Alanani</div>
+                    <div className="flex justify-center">
+                      <a href="https://wa.me/+201066915691" target="_blank"><i className="fab fa-whatsapp fa-2x"></i></a>
+                      <a href="https://www.facebook.com/mostafa.enani.71" target="_blank"><i className="fab fa-facebook fa-2x"></i></a>
+                      <a href="https://t.me/asmaylmr" target="_blank"><i className="fab fa-telegram fa-2x"></i></a>
+                      <a href="tel:+20155884327" target="_blank"><i className="fas fa-phone fa-2x"></i></a>
+                    </div>
+                  </div>
+                )}
+                <li className="text-xl cursor-pointer sidebar-section logout" onClick={() => handleSidebarSectionClick('logout')}>الخروج</li>
+              </ul>
+            </div>
+          )}
+          {activeSection === 'quran' && activeSurahIndex === null && (
+            <div className="mt-4 p-4 bg-white shadow-md">
+              <h2 className="text-2xl mb-4">القرآن الكريم</h2>
+            
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+  {filteredSurahs.map((surah, index) => (
+    <div
+      key={index}
+      className="section p-2 bg-gray-200 rounded cursor-pointer text-center"
+      onClick={() => showSurah(index)}
+    >
+      {surah}
+    </div>
+  ))}
+</div>
+            </div>
+          )}
+          {activeSection === 'quran' && activeSurahIndex !== null && (
+            <div className="mt-4 p-4 bg-white shadow-md relative">
+              <button
+                className="close-button"
+                onClick={closeSurah}
+              >
+                ×
+              </button>
+              <h2 className="text-2xl mb-4">{surahNames[activeSurahIndex]}</h2>
+              <iframe
+              src={`https://drive.google.com/file/d/${surahPdfs[activeSurahIndex].split('/d/')[1].split('/view')[0]}/preview`}
+              width="100%"
+              height="600px"
+              className="border"
+              ></iframe>
+            </div>
+          )}
+          {activeSection === 'azkar' && (
+            <div className="mt-4 p-4 bg-white shadow-md">
+              <h2 className="text-2xl mb-4">الأذكار</h2>
+              <p>محتوى الأذكار...</p>
+            </div>
+          )}
+          {activeSection === 'misbaha' && (
+            <div className="mt-4 p-4 bg-white shadow-md">
+              <h2 className="text-2xl mb-4">المسبحة الإلكترونية</h2>
+              <p>محتوى المسبحة الإلكترونية...</p>
+            </div>
+          )}
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+  </body>
+</html>
