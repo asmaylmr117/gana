@@ -94,7 +94,14 @@
   transform: scale(1.1);
  background-color: aqua;
 }
-
+#GO:hover{
+  background-color: rgb(19, 195, 207);
+  transform: scale(1.1);
+}
+#GN:hover{
+  background-color: rgb(241, 12, 12);
+  transform: scale(1.1);
+}
   </style>
 </head>
 <body class="bg-gray-100">
@@ -199,6 +206,16 @@
   const handleBackToAzkar = () => {
     setActiveAzkarContent(null);
   };
+  
+  const [count, setCount] = useState(0);
+
+const handleClick = () => {
+  setCount(count + 1);
+};
+
+const handleReset = () => {
+  setCount(0);
+};
 
       return (
         <div className="container mx-auto p-4">
@@ -211,7 +228,7 @@
                   <div className="w-6 h-0.5 bg-white"></div>
                 </div>
               </button>
-              <h1 className="text-white text-2xl">الطريق الى الجنة</h1>
+              <h1 className="text-white text-2xl">الطريق إلى الجنة </h1>
             </div>
             <div className="flex space-x-4">
               <button className="text-yellow-500 icon" onClick={() => toggleSection('quran')}>القرآن الكريم</button>
@@ -220,28 +237,40 @@
             </div>
           </div>
           {isSidebarOpen && (
-            <div className="absolute top-16 left-0 w-64 bg-white shadow-lg z-10">
+            <div className="absolute top-16 left-0 w-80 bg-white ">
               <button className="close-button" onClick={toggleSidebar}>×</button>
               <ul className="flex flex-col p-4 space-y-2">
                 <li className="text-xl cursor-pointer sidebar-section about" onClick={() => handleSidebarSectionClick('about')}>عن الموقع</li>
                 {activeSidebarSection === 'about' && (
-                  <div className="text-sm p-2">
-                    <strong>مقدمة:</strong>
-                    <p>هذا موقع ديني يحتوي على القرآن الكريم بالكامل ويحتوي أيضا على جميع الأذكار والأدعية بالإضافة إلى وجود مسبحة إلكترونية للتسبيح.</p>
-                    <strong>أهداف الموقع:</strong>
-                    <ol>
-                      <li>1-</li>
-                      <li>يهدف هذا الموقع إلى التيسير على جميع المسلمين للوصول إلى القرآن الكريم والأذكار والمسبحة الإلكترونية في موقع واحد بدلا من التنقل بين التطبيقات أو الصفحات الأخرى</li>
-                      <li>2-</li>
-                      <li>صدقة جارية على روح والدي الغالي الحاج إسماعيل إبراهيم العناني.</li>
-                    </ol>
-                  </div>
+                  <div className="text-sm p-2   ">
+    <strong>مقدمة:</strong>
+    <p>هذا موقع ديني يحتوي على القرآن الكريم بالكامل ويحتوي أيضا على جميع الأذكار والأدعية بالإضافة إلى وجود مسبحة إلكترونية للتسبيح.</p>
+    <strong>أهداف الموقع:</strong>
+    <ol>
+        <li>1- يهدف هذا الموقع إلى التيسير على جميع المسلمين للوصول إلى القرآن الكريم والأذكار والمسبحة الإلكترونية في موقع واحد بدلا من التنقل بين التطبيقات أو الصفحات الأخرى</li>
+        <li>2- صدقة جارية على روح        </li>
+        <div className="flex space-x-4">
+            <div className="text-center">
+                <img src="baba.jpg" className="w-16 h-20 rounded-full mx-auto mb-2"/>
+                <li> والدي الغالي الحاج إسماعيل إبراهيم العناني</li>
+            </div>
+            <div className="text-center">
+                <img src="bro.jpg" className="w-16 h-20 rounded-full mx-auto mb-2"/>
+                <li> أخي محمود اسماعيل العناني</li>
+            </div>
+            <div className="text-center">
+                <img src="hema.jpg" className="w-16 h-20 rounded-full mx-auto mb-2"/>
+                <li> الأستاذ إبراهيم المأذون</li>
+            </div>
+        </div>
+    </ol>
+</div>
                 )}
                 <li className="text-xl cursor-pointer sidebar-section developer" onClick={() => handleSidebarSectionClick('developer')}>مطور الموقع</li>
                 {activeSidebarSection === 'developer' && (
                   <div className="text-sm p-2">
-                    <img src="mos.jpg" alt="مطور الموقع" className="w-16 h-16 rounded-full mx-auto mb-2"/>
-                    <div className="developer-name">Mostafa Alanani</div>
+                    <img src="mos.jpg" alt="مطور الموقع" className="w-21 h-21 rounded-full mx-auto mb-2"/>
+                    <div className="developer-name ">Mostafa Ismail Alanani</div>
                     <div className="flex justify-center">
                       <a href="https://wa.me/+201066915691" target="_blank"><i className="fab fa-whatsapp fa-2x"></i></a>
                       <a href="https://www.facebook.com/mostafa.enani.71" target="_blank"><i className="fab fa-facebook fa-2x"></i></a>
@@ -1154,12 +1183,31 @@
         </div>
       )}
     </div>
-      {activeSection === 'misbaha' && (
-            <div className="mt-4 p-4 bg-white shadow-md">
-              <h2 className="text-2xl mb-4">المسبحة الإلكترونية</h2>
-              <p>محتوى المسبحة الإلكترونية...</p>
-            </div>
-          )}
+    {activeSection === 'misbaha' && (
+      
+      <div className="bg-white p-8 rounded shadow-lg text-center">
+        
+        <h1 className="text-2xl font-bold mb-4">مسبحة إلكترونية</h1>
+        <div className="mb-4">
+          <span className="text-6xl font-semibold">{count}</span>
+        </div>
+        <div className="flex justify-center space-x-4">
+          <button id="GO"
+            onClick={handleClick} 
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            تسبيح
+          </button>
+          <button id="GN"
+            onClick={handleReset} 
+            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          >
+            إعادة تعيين
+          </button>
+       
+      </div>
+    </div>
+    )}
         </div>
       );  
     };
