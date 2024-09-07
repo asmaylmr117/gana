@@ -502,7 +502,7 @@
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-4">
                 {sectionImages[activeSurahIndex].map((image, index) => (
                   <div key={index} className="relative cursor-pointer">
-                    <img src={image} alt={`Section ${index + 1}`} className="w-full h-auto object-cover rounded aspect-[16/9]" />
+                    <img src={image} alt={`Section ${index + 1}`} className="w-full h-auto object-cover rounded-lg aspect-[16/9]" />
                     <audio controls className="w-full mt-2">
                       <source src={sectionAudio[activeSurahIndex][index]} type="audio/mpeg" />
                       Your browser does not support the audio element.
